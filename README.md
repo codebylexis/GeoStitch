@@ -8,11 +8,11 @@ to a (row, stitch) coordinate suitable for generating crochet patterns.
 
 Two scalar fields are computed over the mesh surface:
 
-**f (row coordinate)** -- geodesic distance from a seed vertex at the bottom
+**f (row coordinate):** geodesic distance from a seed vertex at the bottom
 pole of the mesh, computed with Dijkstra's algorithm on the triangle adjacency
 graph. Vertices at the same geodesic distance form a "row" in the crochet sense.
 
-**g (stitch coordinate)** -- an angular coordinate that increases perpendicular
+**g (stitch coordinate):** an angular coordinate that increases perpendicular
 to the rows. Computed by solving an optimization problem: find g values such that
 the discrete gradient of g aligns with the tangent direction perpendicular to
 grad(f) at every vertex. The objective is:
@@ -27,7 +27,7 @@ seam (where g resets to 0) to make the parameterization well-defined on a sphere
 
 - Java 11 or later
 - Gradle (or use the wrapper after running `gradle wrapper`)
-- No manual dependency downloads -- jMonkeyEngine is fetched from Maven Central
+- No manual dependency downloads; jMonkeyEngine is fetched from Maven Central
 
 ## Build and run
 
@@ -50,25 +50,25 @@ seconds for the included sphere mesh).
 
 ## What you see
 
-- **Gray sphere (center)** -- the input mesh
-- **Red arrows** -- grad(g) vectors on one row of the mesh
-- **Colored dots on mesh** -- vertices on one row, colored by their (f, g) value
-- **Colored dots to the right** -- the same vertices plotted in (g, f) parameter space
-- **Blue dots** -- the geodesic seam
-- **Magenta dots (left)** -- the first half of all mesh vertices
+- **Gray sphere (center):** the input mesh
+- **Red arrows:** grad(g) vectors on one row of the mesh
+- **Colored dots on mesh:** vertices on one row, colored by their (f, g) value
+- **Colored dots to the right:** the same vertices plotted in (g, f) parameter space
+- **Blue dots:** the geodesic seam
+- **Magenta dots (left):** the first half of all mesh vertices
 
 ## Project structure
 
 ```
 src/
-  Main.java      -- application entry point, parameterization algorithm, visualization
-  Vertex.java    -- mesh vertex with adjacency and parameterization state
-  Params.java    -- records BFGS run statistics
+  Main.java      — application entry point, parameterization algorithm, visualization
+  Vertex.java    — mesh vertex with adjacency and parameterization state
+  Params.java    — records BFGS run statistics
 res/
-  sphere.obj     -- input mesh (482 vertices, ~960 triangles)
-  sphere.mtl     -- material for the OBJ loader
-build.gradle     -- Gradle build configuration
-settings.gradle  -- project name
+  sphere.obj     — input mesh (482 vertices, ~960 triangles)
+  sphere.mtl     — material for the OBJ loader
+build.gradle     — Gradle build configuration
+settings.gradle  — project name
 ```
 
 ## Changing the input mesh
