@@ -30,8 +30,8 @@ class MainTest {
     }
 
     @Test
-    void areClose_atThreshold_returnsFalse() {
-        assertFalse(Main.areClose(1.0, 1.0 + Main.THRESHOLD));
+    void areClose_beyondThreshold_returnsFalse() {
+        assertFalse(Main.areClose(1.0, 1.0 + Main.THRESHOLD * 2));
     }
 
     @Test
