@@ -25,9 +25,9 @@ seam (where g resets to 0) to make the parameterization well-defined on a sphere
 
 ## Requirements
 
-- Java 11 or later
+- Java 17 or later
 - Gradle (or use the wrapper after running `gradle wrapper`)
-- No manual dependency downloads; jMonkeyEngine is fetched from Maven Central
+- No manual dependency downloads; jMonkeyEngine and JUnit 5 are fetched from Maven Central
 
 ## Build and run
 
@@ -39,6 +39,20 @@ On the first run Gradle downloads jMonkeyEngine (~50 MB). Subsequent runs are
 fast. The optimization runs in a background thread, so the 3D window appears
 immediately and the visualization fills in when computation finishes (a few
 seconds for the included sphere mesh).
+
+## Testing
+
+Unit tests cover the core algorithmic utilities (`areClose`, `groupByRows`,
+`findClosestVertex`) using JUnit 5.
+
+```bash
+gradle test
+```
+
+## CI
+
+GitHub Actions runs `gradle test` on every push and pull request to `main`.
+See [.github/workflows/ci.yml](.github/workflows/ci.yml).
 
 ## Controls
 

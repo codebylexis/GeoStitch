@@ -482,19 +482,22 @@ public class Main extends SimpleApplication {
     /**
      * Groups vertices into rows by their geodesic distance (f value).
      * Vertices within THRESHOLD of each other share a row key.
+     *
+     * Uses floorKey/ceilingKey so each vertex is placed in O(log n) rather than
+     * scanning every existing key: the only candidate within THRESHOLD must be the
+     * immediately-smaller or immediately-larger key in the sorted map.
      */
     public static TreeMap<Double, List<Vertex>> groupByRows(List<Vertex> vertices) {
         TreeMap<Double, List<Vertex>> rows = new TreeMap<>();
         for (Vertex vertex : vertices) {
-            boolean added = false;
-            for (Double key : rows.keySet()) {
-                if (areClose(vertex.f, key)) {
-                    rows.get(key).add(vertex);
-                    added = true;
-                    break;
-                }
-            }
-            if (!added) {
+            Double lo = rows.floorKey(vertex.f);
+            Double hi = rows.ceilingKey(vertex.f);
+            Double match = null;
+            if (lo != null && areClose(vertex.f, lo)) match = lo;
+            else if (hi != null && areClose(vertex.f, hi)) match = hi;
+            if (match != null) {
+                rows.get(match).add(vertex);
+            } else {
                 List<Vertex> newRow = new ArrayList<>();
                 newRow.add(vertex);
                 rows.put(vertex.f, newRow);
